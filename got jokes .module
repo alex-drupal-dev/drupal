@@ -100,4 +100,3 @@ $block = array(
 
 return $block;
 }
-
