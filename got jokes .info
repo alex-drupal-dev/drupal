@@ -1,5 +1,5 @@
 name = Got Jokes
-description = Displays random jokes from an arrray.
+description = Creates custom block.
 package = Brainbender
 core = 7.x
 
