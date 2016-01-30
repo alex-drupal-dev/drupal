@@ -10,6 +10,8 @@ return $blocks;
 }
 //Code works to this point, beyond it is broken !
 //implements hook_block_configure
+//
+//The commented out section below includes broken code !
 /*
 function got_jokes_block_configure($delta='') {
 $form = array();
@@ -40,6 +42,8 @@ break;
 return $form;
 }
 */
+//code beyond this point works again !
+//
 //implements hook_block_save
 function got_jokes_block_save($delta = '', $edit = array()) {
 switch($delta) {
