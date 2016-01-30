@@ -1,0 +1,6 @@
+name = Got Jokes
+description = Displays random jokes from an arrray.
+package = Brainbender
+core = 7.x
+
+files[] = got_jokes.module
