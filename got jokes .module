@@ -1,0 +1,103 @@
+<?php
+//implements hook_block_info
+function got_jokes_block_info(){
+$blocks = array();
+$blocks['Got Jokes'] = array(
+'info' => t('Got Jokes'),
+);
+
+return $blocks;
+}
+//implements hook_block_configure
+function got_jokes_block_configure($delta='') {
+$form = array();
+
+switch($delta) {
+case 'got_jokes' :
+//text field form element
+$form['text_body'] = array(
+'#type' => 'text_format',
+'#title' => t('Put your text here'),
+'#default_value' => variable_get(text_variable', ''),
+);
+
+//file selection form element
+$form['file'] = array(
+'#name' => 'block_image',
+'#type' => 'managed_file',
+'#title' => t('Choose an Image File'),
+'#description' => t('Select an image for the got jokes block. Only .gif, png, jpg, and jpeg allowed.'),
+'#default_value' => variable_get('block_image_fid', ''),
+'#upload_location' => 'public://block_image/',
+'#upload_validators' => array(
+'file_validate_extensions' => array('gif png jpg jpeg'),
+),
+);
+break;
+}
+return $form;
+}
+//implements hook_block_save
+function got_jokes_block_save($delta = '', $edit = array()) {
+switch($delta) {
+case 'got_jokes' :
+//saving wysiwyg text
+variable_set('text_variable', $edit['texxt_body']['value']);
+//saving the file
+$file = file_load($edit['file']);
+$file->status = FILE_STATUS_PERMANENT;
+file_save($files);
+$block = block_load('got_jokes', $delta);
+file_usage_add($file, 'got_jokes', 'block', $block->bid);
+variable_set('block_image_fid', $file->fid);
+break;
+}
+}
+//implements hook_block_view
+function got_jokes_block_view($delta=''){
+$block = array();
+
+switch($delta) {
+case 'got_jokes' :
+$block['content'] = got_jokes_view();
+break;
+}
+
+return $block;
+}
+//custom function to assemble renderable array for block content
+function got_jokes_view() {
+$block = array();
+//capture the image file path etc
+$image_file = file_load(variable_get('block_image_fid', ''));
+$image_path = '';
+
+if (isset($image_file->uri)) {
+$image_path = $image_file->uri;
+}
+
+$image = theme_image(array(
+'path' => ($image_path),
+'alt' => t('Image description here.'),
+'title' => t('This is our block image.'),
+'attributes' => array('class' => 'class_name'),
+));
+//capture wysiwyg text from variable
+$text = variable_get('text_variable', '');
+//block output in html with div wrapper
+$block = array(
+'image' =>array(
+'#prefix' => '',
+'#type' => 'markup',
+'#markup' => $image,
+),
+'message' =>array(
+'#type' => 'markup',
+'#markup' => $text,
+'#suffix' => '',
+),
+);
+
+return $block;
+}
+
