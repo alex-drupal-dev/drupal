@@ -8,6 +8,7 @@ $blocks['Got Jokes'] = array(
 
 return $blocks;
 }
+//Code works to this point, beyond it is broken !
 //implements hook_block_configure
 function got_jokes_block_configure($delta='') {
 $form = array();
