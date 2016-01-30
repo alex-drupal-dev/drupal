@@ -1,6 +1,7 @@
 name = Got Jokes
 description = Creates custom block.
-package = Brainbender
 core = 7.x
-
+package = Brainbender
+version = 7.x-1.0
+files[] =got_jokes.info
 files[] = got_jokes.module
