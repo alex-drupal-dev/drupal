@@ -61,6 +61,14 @@ break;
 }
 }
 //implements hook_block_view
+//code is trying to output image without having one. Must put if statement to stop process if no image.
+//maybe something like this???
+//if (file_exists($image)) {
+//    echo "The file exists";
+//} else {
+//    echo "The file does not exist";
+//}
+//need suggestions here
 function got_jokes_block_view($delta=''){
 $block = array();
 
